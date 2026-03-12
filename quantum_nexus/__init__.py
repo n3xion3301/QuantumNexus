@@ -14,6 +14,10 @@ from .quantum_gates import QuantumGates
 from .measurement import Measurement
 from .quantum_algorithms import QuantumAlgorithms
 from .quantum_simulation import QuantumSimulation
+from .quantum_teleportation import QuantumTeleportation
+from .quantum_key_distribution import QuantumKeyDistribution
+from .network_quantum_computing import QuantumNetwork, QuantumNode
+from .distributed_quantum_simulation import DistributedQuantumSimulation
 
 __all__ = [
     "AxiomKey",
@@ -27,4 +31,9 @@ __all__ = [
     "Measurement",
     "QuantumAlgorithms",
     "QuantumSimulation",
+    "QuantumTeleportation",
+    "QuantumKeyDistribution",
+    "QuantumNetwork",
+    "QuantumNode",
+    "DistributedQuantumSimulation",
 ]
