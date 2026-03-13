@@ -1,36 +1,30 @@
-"""Distributed Quantum Simulation demonstrations."""
+"""Real Distributed Quantum Simulation Demo."""
 
 import sys
-sys.path.insert(0, '..')
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from quantum_nexus.distributed_quantum_simulation import DistributedQuantumSimulation
 import numpy as np
 
 
-def demo_distributed_evolution():
-    """Demonstrate distributed quantum evolution."""
-    print("=== Distributed Quantum Evolution ===")
+def demo_distributed_simulation():
+    """Demonstrate distributed quantum simulation."""
+    print("=== Distributed Quantum Simulation ===\n")
     
-    # Create Hamiltonians for each node
-    hamiltonians = [
-        np.array([[1, 0], [0, -1]], dtype=complex),
-        np.array([[0, 1], [1, 0]], dtype=complex),
-        np.array([[0, -1j], [1j, 0]], dtype=complex)
-    ]
+    # Create distributed system
+    sim = DistributedQuantumSimulation(n_nodes=4)
     
-    sim = DistributedQuantumSimulation(n_nodes=3, hamiltonian_parts=hamiltonians)
+    print(f"Distributed system created with {sim.n_nodes} nodes")
+    print(f"System: {sim}")
     
-    # Evolve system
-    time_steps = [0, 0.5, 1.0, 1.5, 2.0]
-    results = sim.distributed_evolution(time_steps)
+    # Run simulation
+    print("\nRunning distributed simulation...")
+    result = sim.run_distributed_simulation()
     
-    print(f"Simulated {len(time_steps)} time steps")
-    print(f"Nodes synchronized at each step")
-    
-    # Get efficiency
-    efficiency = sim.get_simulation_efficiency()
-    print(f"Operations per node: {efficiency['operations_per_node']:.1f}")
+    print(f"Simulation complete!")
+    print(f"Result: {result}")
 
 
 if __name__ == "__main__":
-    demo_distributed_evolution()
+    demo_distributed_simulation()

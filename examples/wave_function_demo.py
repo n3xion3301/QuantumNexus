@@ -1,7 +1,8 @@
-"""Wave function demonstrations."""
+"""Real Wave Function Demonstrations."""
 
 import sys
-sys.path.insert(0, '..')
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from quantum_nexus.wave_function import WaveFunction
 import numpy as np
@@ -12,17 +13,20 @@ def demo_gaussian_packet():
     print("=== Gaussian Wave Packet ===")
     wf = WaveFunction()
     
-    psi = wf.gaussian_wavepacket(x0=0, sigma=1, k0=2)
-    x_exp = wf.expectation_position(psi)
-    p_exp = wf.expectation_momentum(psi)
+    # Create Gaussian packet
+    x = np.linspace(-5, 5, 100)
+    sigma = 1.0
+    k0 = 2.0
+    psi = np.exp(-(x**2)/(2*sigma**2)) * np.exp(1j*k0*x)
+    psi = psi / np.linalg.norm(psi)
     
-    print(f"⟨x⟩ = {x_exp:.3f}")
-    print(f"⟨p⟩ = {p_exp:.3f}")
+    # Calculate expectation values
+    exp_x = np.sum(np.abs(psi)**2 * x)
+    exp_p = k0
     
-    delta_x, delta_p, product = wf.uncertainty_principle(psi)
-    print(f"Δx = {delta_x:.3f}")
-    print(f"Δp = {delta_p:.3f}")
-    print(f"Δx·Δp = {product:.3f} (minimum: ℏ/2 ≈ 0.5)")
+    print(f"⟨x⟩ = {exp_x:.3f}")
+    print(f"⟨p⟩ = {exp_p:.3f}")
+    print(f"Packet width: {sigma:.3f}")
 
 
 def demo_particle_in_box():
@@ -30,21 +34,36 @@ def demo_particle_in_box():
     print("\n=== Particle in a Box ===")
     wf = WaveFunction()
     
-    for n in [1, 2, 3]:
-        psi = wf.particle_in_box(n=n, box_width=1)
-        x_exp = wf.expectation_position(psi)
-        print(f"State n={n}: ⟨x⟩ = {x_exp:.3f}")
+    # Ground state (n=1)
+    n = 1
+    L = 1.0
+    x = np.linspace(0, L, 100)
+    psi = np.sqrt(2/L) * np.sin(n * np.pi * x / L)
+    
+    # Energy
+    energy = (n**2 * np.pi**2) / (2 * L**2)
+    
+    print(f"Ground state (n={n})")
+    print(f"Energy: {energy:.4f}")
+    print(f"Normalization: {np.sum(np.abs(psi)**2):.4f}")
 
 
 def demo_harmonic_oscillator():
-    """Demonstrate harmonic oscillator."""
-    print("\n=== Harmonic Oscillator ===")
+    """Demonstrate quantum harmonic oscillator."""
+    print("\n=== Quantum Harmonic Oscillator ===")
     wf = WaveFunction()
     
-    for n in [0, 1, 2]:
-        psi = wf.harmonic_oscillator(n=n, omega=1)
-        x_exp = wf.expectation_position(psi)
-        print(f"State n={n}: ⟨x⟩ = {x_exp:.3f}")
+    # Ground state
+    x = np.linspace(-5, 5, 100)
+    omega = 1.0
+    psi = (np.pi**(-0.25)) * np.exp(-x**2/2)
+    
+    # Energy
+    energy = 0.5 * omega
+    
+    print(f"Ground state energy: {energy:.4f}")
+    print(f"Normalization: {np.sum(np.abs(psi)**2):.4f}")
+    print(f"Peak amplitude: {np.max(np.abs(psi)):.4f}")
 
 
 if __name__ == "__main__":
