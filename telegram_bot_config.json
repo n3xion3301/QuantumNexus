@@ -1,0 +1,36 @@
+{
+  "timestamp": "2026-03-13T03:39:13.777600",
+  "bot_name": "@quantumn3xion_bot",
+  "status": "ACTIVE",
+  "capabilities": [
+    "/start - Start the bot",
+    "/help - Show help",
+    "/status - System status",
+    "/quantum - Quantum operations",
+    "/network - Network status",
+    "/simulate - Run quantum simulations",
+    "/teleport - Quantum teleportation",
+    "/qkd - Quantum key distribution",
+    "/stats - Get statistics"
+  ],
+  "features": {
+    "real_time_notifications": true,
+    "quantum_simulations": true,
+    "hardware_integration": true,
+    "data_visualization": true,
+    "secure_communication": true
+  },
+  "connected_services": {
+    "quantum_nexus_framework": "CONNECTED",
+    "visualization_engine": "READY",
+    "hardware_backends": "READY",
+    "telegram_api": "ACTIVE"
+  },
+  "usage_instructions": [
+    "1. Find @quantumn3xion_bot on Telegram",
+    "2. Send /start to initialize",
+    "3. Use /help to see all commands",
+    "4. Run quantum simulations with /simulate",
+    "5. Get real-time results and notifications"
+  ]
+}
