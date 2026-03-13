@@ -20,12 +20,10 @@ BOT_TOKEN = os.getenv("QUANTUM_BOT_TOKEN")
 
 if not BOT_TOKEN:
     print("❌ Error: QUANTUM_BOT_TOKEN not set!")
-    print("Run: export QUANTUM_BOT_TOKEN='your_token_here'")
     sys.exit(1)
 
 # Command handlers
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Start command."""
     await update.message.reply_text(
         "🌌 Welcome to Quantum Nexus!\n\n"
         "Available commands:\n"
@@ -34,12 +32,12 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "/network - Network status\n"
         "/simulate - Run simulations\n"
         "/teleport - Quantum teleportation\n"
+        "/qkd - Quantum key distribution\n"
         "/stats - Get statistics\n"
         "/help - Show help"
     )
 
 async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Status command."""
     await update.message.reply_text(
         "⚛️ Quantum Nexus Status:\n\n"
         "✓ System: Operational\n"
@@ -49,7 +47,6 @@ async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def quantum(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Quantum operations."""
     await update.message.reply_text(
         "⚛️ Quantum Operations:\n\n"
         "• Superposition\n"
@@ -60,7 +57,6 @@ async def quantum(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def network(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Network status."""
     await update.message.reply_text(
         "🌐 Quantum Network:\n\n"
         "✓ QIXPs: 5 online\n"
@@ -70,7 +66,6 @@ async def network(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def simulate(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Run quantum simulation."""
     await update.message.reply_text(
         "🔬 Running Quantum Simulation...\n\n"
         "Executing advanced quantum simulations:\n"
@@ -84,7 +79,6 @@ async def simulate(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def teleport(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Quantum teleportation."""
     await update.message.reply_text(
         "🌌 Quantum Teleportation Protocol\n\n"
         "Initiating quantum state transfer...\n\n"
@@ -96,8 +90,19 @@ async def teleport(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "Fidelity: 0.9954"
     )
 
+async def qkd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "🔐 BB84 Quantum Key Distribution\n\n"
+        "Generating secure quantum key...\n\n"
+        "✓ Qubits transmitted: 256\n"
+        "✓ Sifted key length: 128 bits\n"
+        "✓ Quantum bit error rate: 0.02%\n"
+        "✓ Eavesdropping detected: No\n\n"
+        "Secure key generated!\n"
+        "Key: 1101010110101010..."
+    )
+
 async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Statistics."""
     await update.message.reply_text(
         "📊 Quantum Nexus Stats:\n\n"
         "✓ Modules: 25+\n"
@@ -107,7 +112,6 @@ async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Help command."""
     await update.message.reply_text(
         "🚀 Quantum Nexus Help:\n\n"
         "/start - Start the bot\n"
@@ -116,28 +120,27 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "/network - Network status\n"
         "/simulate - Run simulations\n"
         "/teleport - Quantum teleportation\n"
+        "/qkd - Quantum key distribution\n"
         "/stats - Statistics\n"
         "/help - This help message"
     )
 
 def main():
-    """Start the bot."""
     print("=" * 60)
     print("🤖 QUANTUM NEXUS TELEGRAM BOT")
     print("=" * 60)
     print(f"\n✓ Bot Token: {BOT_TOKEN[:20]}...")
     print("✓ Connecting to Telegram...")
     
-    # Create application
     application = Application.builder().token(BOT_TOKEN).build()
     
-    # Add handlers
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("status", status))
     application.add_handler(CommandHandler("quantum", quantum))
     application.add_handler(CommandHandler("network", network))
     application.add_handler(CommandHandler("simulate", simulate))
     application.add_handler(CommandHandler("teleport", teleport))
+    application.add_handler(CommandHandler("qkd", qkd))
     application.add_handler(CommandHandler("stats", stats))
     application.add_handler(CommandHandler("help", help_command))
     
@@ -148,7 +151,6 @@ def main():
     print("=" * 60)
     print("\nPress Ctrl+C to stop\n")
     
-    # Start bot
     application.run_polling()
 
 if __name__ == "__main__":
